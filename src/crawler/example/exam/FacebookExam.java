@@ -24,9 +24,9 @@ public class FacebookExam {
 		// 遠端資料路徑
 
 		String uri = 
-				"https://graph.facebook.com/v2.6"
-				+ "/search?q="
-				+ "&access_token=";
+				"https://graph.facebook.com/v2.8"
+				+ "/crazyck101/posts?fields=id,link,message,created_time,reactions.type(HAHA).limit(0).summary(true)&since=1480849200&until=1480856400"
+				+ "&access_token=EAACEdEose0cBAFSuHrOzztTkiZBU0muXYlJZAGF5uSbK6aWZB6ozHZBIQJz2hbAK7brwkeTSZBsYU3eel4r9TVMfRjJFXZBdFtwD11ENkLngQRnbx3XMUw0rnMZCeKmPHhNZC8QKLaqEH9UOqZCLCLKIhrstasiTohtukDwbWamqk0NmZASSKN1mhJuBKBDnUzxB0ZD";
 
 
 		Elements elems =
@@ -34,17 +34,20 @@ public class FacebookExam {
 				.getFromJson(uri)
 				.select("data");
 		
-		String output = "id,reactions";
+		String output = "id,內容,發布時間,哈哈的讚數\n";
 
 		// 遂筆處理
 		for( Element data: elems ){
 			String id = data.select("id").text();
+			String message = data.select("message").text();
+			String created_time = data.select("created_time").text();
+			String reactions = data.select("total_count").text();
 
 			// FIXIT
-			String reactions = "";
+			//String reactions = "";
 
 
-			output += id + "," + reactions + "\n";
+			output += id + "," + message + "," +created_time +"," + reactions+"\n";
 		}
 
 		System.out.println( output );
